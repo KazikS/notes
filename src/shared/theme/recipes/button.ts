@@ -26,6 +26,7 @@ export const buttonRecipe = defineRecipe({
                 _hover: {
                     bg: 'bg',
                     color: 'fg',
+                    border: '1px solid {colors.fg}',
                 }
             },
             secondary: {

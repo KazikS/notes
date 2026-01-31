@@ -1,5 +1,5 @@
 import { Header } from "@/components/layout/Header";
-import { Provider } from "@/theme/provider";
+import { Provider } from "@/shared/theme/provider";
 
 export default function RootLayout({
   children,

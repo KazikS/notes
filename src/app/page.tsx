@@ -1,7 +1,9 @@
-import { ColorModeButton } from "@/theme/color-mode";
-import { Flex, Button, Input, Field } from "@chakra-ui/react";
+import { AnimatedIntro } from "@/components/landing/AnimatedIntro";
+import { Flex } from "@chakra-ui/react";
 
 export default function Home() {
+  const isAuth = true;
+  const startUrl = isAuth ? "/notes" : "/login";
   return (
     <Flex
       bg="bg"
@@ -12,23 +14,10 @@ export default function Home() {
       gap={4}
       w="10/12"
       margin="auto"
+      h="70dvh"
+      overflow="hidden"
     >
-      <ColorModeButton />
-      Home Page
-      <Button variant="primary" size="md">
-        Click me
-      </Button>
-      <Button variant="secondary" size="md">
-        Click me
-      </Button>
-      <Button variant="ghost" size="md">
-        Click me
-      </Button>
-      <Field.Root invalid>
-        <Field.Label px="4">Input Label</Field.Label>
-        <Field.HelperText px="4">Helper text</Field.HelperText>
-        <Input placeholder="Type here..." />
-      </Field.Root>
+      <AnimatedIntro url={startUrl} />
     </Flex>
   );
 }
