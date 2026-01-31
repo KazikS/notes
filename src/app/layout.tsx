@@ -1,3 +1,4 @@
+import { Header } from "@/components/layout/Header";
 import { Provider } from "@/theme/provider";
 
 export default function RootLayout({
@@ -8,7 +9,10 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <Header />
+          {children}
+        </Provider>
       </body>
     </html>
   );

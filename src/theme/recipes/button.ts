@@ -23,6 +23,10 @@ export const buttonRecipe = defineRecipe({
             primary: {
                 bg: "fg",
                 color: "bg",
+                _hover: {
+                    bg: 'bg',
+                    color: 'fg',
+                }
             },
             secondary: {
                 bg: "bg",
@@ -30,6 +34,10 @@ export const buttonRecipe = defineRecipe({
             },
             ghost: {
                 color: "fg",
+                _hover: {
+                    color: 'bg',
+                    bg: 'fg',
+                }
             }
         }
     },
