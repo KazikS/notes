@@ -2,7 +2,7 @@ import { defineSemanticTokens } from "@chakra-ui/react";
 
 const colors = defineSemanticTokens.colors({
     bg: {
-        value: { base: '{colors.brand.50}', _dark: '{colors.brand.900}' }
+        value: { base: '{colors.brand.100}', _dark: '{colors.brand.900}' }
     },
     fg: {
         value: { base: '{colors.brand.700}', _dark: '{colors.brand.100}' }

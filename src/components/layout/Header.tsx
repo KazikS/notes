@@ -3,12 +3,18 @@ import { ColorModeButton, useColorMode } from "@/shared/theme/color-mode";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
   const { colorMode } = useColorMode();
   const [mounted, setMounted] = useState(false);
-  const isAuth = true;
-  const btnText = isAuth ? "Профиль" : "Войти";
+  const router = useRouter();
+  const isAuth = false;
+  const btnText = isAuth ? "профиль" : "войти";
+
+  const handleClick = () => {
+    router.push("/");
+  };
 
   useEffect(() => {
     // eslint-disable-next-line
@@ -23,10 +29,21 @@ export const Header = () => {
         margin="auto"
         p={4}
         w="full"
+        h={{ base: "52px", md: "80px" }}
       >
-        <Text fontSize={{ base: "md", md: "2xl" }}>заметки</Text>
+        <Text
+          fontSize={{ base: "md", md: "2xl" }}
+          cursor="pointer"
+          onClick={handleClick}
+        >
+          заметки
+        </Text>
         {mounted && (
-          <Box display={{ base: "none", md: "block" }}>
+          <Box
+            display={{ base: "none", md: "block" }}
+            cursor="pointer"
+            onClick={handleClick}
+          >
             <Image
               src={`/logo-${colorMode}.svg`}
               alt=""

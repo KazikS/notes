@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Provider } from "@/shared/theme/provider";
+import { Flex, Box } from "@chakra-ui/react";
 
 export default function RootLayout({
   children,
@@ -10,8 +11,10 @@ export default function RootLayout({
     <html suppressHydrationWarning>
       <body>
         <Provider>
-          <Header />
-          {children}
+          <Flex flexDirection="column" minH="100dvh" height="100vh">
+            <Header />
+            <Box flex="1">{children}</Box>
+          </Flex>
         </Provider>
       </body>
     </html>
