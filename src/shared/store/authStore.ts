@@ -6,7 +6,7 @@ type User = {
   name: string;
 };
 
-type AuthType = {
+export type AuthType = {
   isAuth: boolean;
   setIsAuth: (value: boolean) => void;
   user: User | null;

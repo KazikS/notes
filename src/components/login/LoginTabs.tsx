@@ -4,7 +4,7 @@ import { RegisterForm } from "./RegisterForm";
 
 export const LoginTabs = () => {
   return (
-    <Tabs.Root defaultValue="login" maxW="800px" variant="enclosed">
+    <Tabs.Root defaultValue="login" w={{base: '100%', md: '400px'}} variant="enclosed">
       <Tabs.List>
         <Tabs.Trigger value="login">войти</Tabs.Trigger>
         <Tabs.Trigger value="register">регистрация</Tabs.Trigger>
@@ -12,7 +12,7 @@ export const LoginTabs = () => {
       <Tabs.Content value="login" borderTopStartRadius="none">
         <LoginForm />
       </Tabs.Content>
-      <Tabs.Content value="register">
+      <Tabs.Content value="register" borderTopEndRadius='none'>
         <RegisterForm />
       </Tabs.Content>
     </Tabs.Root>

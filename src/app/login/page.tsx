@@ -1,5 +1,5 @@
 import { LoginTabs } from "@/components/login/LoginTabs";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 export default function Login() {
   return (
@@ -12,9 +12,9 @@ export default function Login() {
       overflow="hidden"
       h="full"
     >
-      <Box mt="48" w="1/2">
+      <Flex mt="48" w="2/3" alignItems="center" justifyContent="center">
         <LoginTabs />
-      </Box>
+      </Flex>
     </Flex>
   );
 }

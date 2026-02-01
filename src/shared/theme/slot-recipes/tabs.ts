@@ -18,7 +18,7 @@ export const tabsSlotRecipe = defineSlotRecipe({
             boxShadow: "none",
           },
         },
-        list: { p: "0" },
+        list: { p: "0", display: 'flex', justifyContent: 'space-between'},
         content: {
           border: "2px solid {colors.fg}",
           borderRadius: "2xl",

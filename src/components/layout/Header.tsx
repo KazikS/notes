@@ -4,17 +4,23 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/shared/store/authStore";
 
 export const Header = () => {
   const { colorMode } = useColorMode();
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
-  const isAuth = false;
+  const isAuth = useAuthStore().isAuth;
+  console.log(isAuth);
   const btnText = isAuth ? "профиль" : "войти";
 
   const handleClick = () => {
     router.push("/");
   };
+
+  const handleBtnClick = () => {
+    router.push(`${isAuth ? '/' : '/login'}`)
+  }
 
   useEffect(() => {
     // eslint-disable-next-line
@@ -53,7 +59,7 @@ export const Header = () => {
           </Box>
         )}
         <Flex gap={4} alignItems="center">
-          <Button variant="primary" size={{ base: "sm", md: "md" }}>
+          <Button variant="primary" size={{ base: "sm", md: "md" }} onClick={handleBtnClick}>
             {btnText}
           </Button>
           <ColorModeButton />
