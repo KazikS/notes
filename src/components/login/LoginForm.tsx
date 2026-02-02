@@ -1,8 +1,6 @@
 "use client";
 import { signInWithEmail } from "@/shared/api/auth";
-import { useAuthStore } from "@/shared/store/authStore";
 import { Button, Field, Flex, Input } from "@chakra-ui/react";
-import { AuthResponse } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,7 +9,6 @@ export const LoginForm = () => {
   const [pwd, setPwd] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [auth, setAuth] = useState<AuthResponse>();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,10 +17,11 @@ export const LoginForm = () => {
     const response = await signInWithEmail(email, pwd);
     if (response.error) {
       setError(response.error.message);
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
     router.push('/notes');
-
+    setIsLoading(false);
   };
 
   return (

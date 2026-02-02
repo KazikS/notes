@@ -1,15 +1,20 @@
-'use client'
+"use client";
 import { signUpWithEmail } from "@/shared/api/auth";
 import { Button, Field, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const RegisterForm = () => {
+export const RegisterForm = ({
+  setTabValue,
+  setIsRegistered,
+}: {
+  setTabValue: (value: string) => void;
+  setIsRegistered: (value: boolean) => void;
+}) => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,11 +22,21 @@ export const RegisterForm = () => {
     const response = await signUpWithEmail(email, pwd, name);
     if (response.error) {
       setError(response.error.message);
+      return;
     }
     setIsLoading(false);
+    setTabValue("login");
+    setIsRegistered(true);
   };
   return (
-    <Flex as="form" flexDirection="column" onSubmit={handleSubmit} gap={4} maxW={400} p="5">
+    <Flex
+      as="form"
+      flexDirection="column"
+      onSubmit={handleSubmit}
+      gap={4}
+      maxW={400}
+      p="5"
+    >
       <Field.Root required>
         <Field.Label>имя</Field.Label>
         <Input

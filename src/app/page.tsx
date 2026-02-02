@@ -1,8 +1,10 @@
+'use client'
 import { AnimatedIntro } from "@/components/landing/AnimatedIntro";
+import { useAuthStore } from "@/shared/store/auth";
 import { Flex } from "@chakra-ui/react";
 
 export default function Home() {
-  const isAuth = false;
+  const isAuth = useAuthStore((state) => state.isAuth);
   const startUrl = isAuth ? "/notes" : "/login";
   return (
     <Flex

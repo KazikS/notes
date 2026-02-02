@@ -11,9 +11,9 @@ export const signUpWithEmail = async (
       password,
       options: {
         data: {
-          name
-        }
-      }
+          name,
+        },
+      },
     });
     return { data, error };
   } catch (error) {
@@ -40,6 +40,21 @@ export const signInWithEmail = async (email: string, password: string) => {
       data: null,
       error: {
         message: `Сервер недоступен`,
+      },
+    };
+  }
+};
+
+export const signOut = async () => {
+  try {
+    const { error } = await supabase.auth.signOut({ scope: "local" });
+    return error;
+  } catch (error) {
+    console.log(JSON.stringify(error, null, 2));
+    return {
+      data: null,
+      error: {
+        message: "Ошибка разлогина",
       },
     };
   }
