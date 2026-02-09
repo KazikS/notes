@@ -14,4 +14,12 @@ export const colors = defineTokens.colors({
     900: { value: "#261C1A" }, // тёмно-коричневый
     950: { value: "#1A1210" }, // почти чёрный тёплый
   },
+  note: {
+    terracotta: { value: "#C19673" }, // терракотовый (brand.400)
+    caramel: { value: "#B8956E" }, // карамельный
+    clay: { value: "#A68B6A" }, // глиняный
+    walnut: { value: "#8B7355" }, // ореховый
+    cedar: { value: "#9A7B5B" }, // кедровый
+    bronze: { value: "#A67D5D" }, // бронзовый (brand.500)
+  },
 });

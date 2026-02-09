@@ -1,10 +1,5 @@
+import { User } from "@/shared/types/auth";
 import { create } from "zustand";
-
-type User = {
-  id: string;
-  email: string;
-  name: string;
-};
 
 export type AuthType = {
   isAuth: boolean;

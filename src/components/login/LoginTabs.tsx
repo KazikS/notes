@@ -3,7 +3,7 @@ import { Box, Flex, Tabs, Text } from "@chakra-ui/react";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 import { useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { LuCircleCheck } from "react-icons/lu";
 
 export const LoginTabs = () => {
   const [tabValue, setTabValue] = useState<string | null>("login");
@@ -26,7 +26,7 @@ export const LoginTabs = () => {
             <Box
               color="{colors.success}"
             >
-              <FaCheckCircle size={20}/>
+              <LuCircleCheck size={20}/>
             </Box>
             <Text mx="3">регистрация успешна, вводи данные</Text>
           </Flex>

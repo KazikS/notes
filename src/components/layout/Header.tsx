@@ -13,6 +13,7 @@ export const Header = () => {
   const router = useRouter();
   const isAuth = useAuthStore().isAuth;
   const btnText = isAuth ? "выйти" : "войти";
+  const userName = useAuthStore((state) => state.user?.name);
 
   const handleClick = () => {
     router.push("/");
@@ -21,7 +22,7 @@ export const Header = () => {
   const handleBtnClick = () => {
     if (isAuth) {
       signOut();
-      router.push('/');
+      router.push("/");
     } else {
       router.push("/login");
     }
@@ -42,13 +43,18 @@ export const Header = () => {
         w="full"
         h={{ base: "52px", md: "80px" }}
       >
-        <Text
-          fontSize={{ base: "md", md: "2xl" }}
-          cursor="pointer"
-          onClick={handleClick}
-        >
-          заметки
-        </Text>
+        <Flex flexDirection='column'>
+          <Text
+            fontSize={{ base: "md", md: "2xl" }}
+            cursor="pointer"
+            onClick={handleClick}
+          >
+            заметки
+          </Text>
+          <Text>
+            {userName ? userName : 'гость'}
+          </Text>
+        </Flex>
         {mounted && (
           <Box
             display={{ base: "none", md: "block" }}

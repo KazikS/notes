@@ -1,28 +1,23 @@
 "use client";
-import { signInWithEmail } from "@/shared/api/auth";
-import { Button, Field, Flex, Input } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useLoginForm } from "@/shared/hooks/useLoginForm";
+import { Button, Field, Flex, Input, InputGroup } from "@chakra-ui/react";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState<string>("");
-  const [pwd, setPwd] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
+  const {
+    formData,
+    loading,
+    showPassword,
+    errors,
+    handleSubmit,
+    togglePasswordVisibility,
+    updateField,
+  } = useLoginForm();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const response = await signInWithEmail(email, pwd);
-    if (response.error) {
-      setError(response.error.message);
-      setIsLoading(false);
-      return;
-    }
-    router.push('/notes');
-    setIsLoading(false);
-  };
+  const handleEmailChange = (value: string) =>
+    updateField({ field: "email", value });
+  const handlePasswordChange = (value: string) =>
+    updateField({ field: "password", value });
 
   return (
     <Flex
@@ -37,26 +32,41 @@ export const LoginForm = () => {
         <Field.Label>почта</Field.Label>
         <Input
           placeholder="введи почту..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={(e) => handleEmailChange(e.target.value)}
           type="email"
         />
       </Field.Root>
       <Field.Root required>
         <Field.Label>пароль</Field.Label>
-        <Input
-          placeholder="введи пароль..."
-          value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
-          type="password"
-        />
+        <InputGroup
+          endElement={
+            <Button
+              variant="ghost"
+              w="10"
+              h="10"
+              rounded="full"
+              m="1"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <LuEyeOff /> : <LuEye />}
+            </Button>
+          }
+        >
+          <Input
+            placeholder="введи пароль..."
+            value={formData.password}
+            onChange={(e) => handlePasswordChange(e.target.value)}
+            type="password"
+          />
+        </InputGroup>
       </Field.Root>
 
-      <Field.Root invalid={error ? true : false}>
-        <Field.ErrorText>{error}</Field.ErrorText>
+      <Field.Root invalid={errors.api ? true : false}>
+        <Field.ErrorText>{errors.api}</Field.ErrorText>
       </Field.Root>
 
-      <Button type="submit" w="fit" loading={isLoading}>
+      <Button type="submit" w="fit" loading={loading}>
         войти
       </Button>
     </Flex>

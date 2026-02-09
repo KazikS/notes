@@ -1,7 +1,8 @@
-'use client'
+"use client";
 import { AnimatedIntro } from "@/components/landing/AnimatedIntro";
 import { useAuthStore } from "@/shared/store/auth";
-import { Flex } from "@chakra-ui/react";
+import { toaster } from "@/shared/theme/toaster";
+import { Button, Flex } from "@chakra-ui/react";
 
 export default function Home() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -18,6 +19,18 @@ export default function Home() {
       h="full"
     >
       <AnimatedIntro url={startUrl} />
+      <Button
+        onClick={() =>
+          toaster.create({
+            description: "File saved successfully",
+            type: "info",
+            closable: true,
+            duration: Infinity,
+          })
+        }
+      >
+        вызвать тостер
+      </Button>
     </Flex>
   );
 }

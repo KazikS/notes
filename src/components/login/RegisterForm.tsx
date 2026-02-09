@@ -1,7 +1,7 @@
 "use client";
-import { signUpWithEmail } from "@/shared/api/auth";
-import { Button, Field, Flex, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRegisterForm } from "@/shared/hooks/useRegisterForm";
+import { Button, Field, Flex, Input, InputGroup } from "@chakra-ui/react";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export const RegisterForm = ({
   setTabValue,
@@ -10,24 +10,23 @@ export const RegisterForm = ({
   setTabValue: (value: string) => void;
   setIsRegistered: (value: boolean) => void;
 }) => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [pwd, setPwd] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const {
+    formData,
+    errors,
+    isLoading,
+    showPassword,
+    updateField,
+    handleSubmit,
+    togglePasswordVisibility,
+  } = useRegisterForm({ setTabValue, setIsRegistered });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const response = await signUpWithEmail(email, pwd, name);
-    if (response.error) {
-      setError(response.error.message);
-      return;
-    }
-    setIsLoading(false);
-    setTabValue("login");
-    setIsRegistered(true);
-  };
+  const handleNameChange = (value: string) =>
+    updateField({ field: "name", value });
+  const handleEmailChange = (value: string) =>
+    updateField({ field: "email", value });
+  const handlePasswordChange = (value: string) =>
+    updateField({ field: "password", value });
+
   return (
     <Flex
       as="form"
@@ -37,36 +36,65 @@ export const RegisterForm = ({
       maxW={400}
       p="5"
     >
-      <Field.Root required>
+      <Field.Root required invalid={!!errors.name}>
         <Field.Label>имя</Field.Label>
         <Input
           placeholder="введи имя..."
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={(e) => handleNameChange(e.target.value)}
         />
+        {errors.name && <Field.ErrorText>{errors.name}</Field.ErrorText>}
       </Field.Root>
-      <Field.Root required>
+      <Field.Root required invalid={!!errors.email}>
         <Field.Label>почта</Field.Label>
         <Input
           placeholder="введи почту..."
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={(e) => handleEmailChange(e.target.value)}
         />
+        {errors.email && <Field.ErrorText>{errors.email}</Field.ErrorText>}
       </Field.Root>
-      <Field.Root required>
+      <Field.Root required invalid={!!errors.password}>
         <Field.Label>пароль</Field.Label>
-        <Input
-          placeholder="введи пароль..."
-          type="password"
-          value={pwd}
-          onChange={(e) => setPwd(e.target.value)}
-        />
+        <InputGroup
+          endElement={
+            <Button
+              variant="ghost"
+              w="10"
+              h="10"
+              rounded="full"
+              m="1"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <LuEyeOff /> : <LuEye />}
+            </Button>
+          }
+        >
+          <Input
+            placeholder="введи пароль..."
+            type={showPassword ? "text" : "password"}
+            value={formData.password}
+            onChange={(e) => {
+              handlePasswordChange(e.target.value);
+            }}
+          />
+        </InputGroup>
+        {errors.password ? (
+          <Field.ErrorText>{errors.password}</Field.ErrorText>
+        ) : (
+          <Field.HelperText marginLeft="2">
+            Пароль должен быть не короче 6 символов, иметь заглавные и строчные
+            латинские буквы
+          </Field.HelperText>
+        )}
       </Field.Root>
 
-      <Field.Root invalid={error ? true : false}>
-        <Field.ErrorText>{error}</Field.ErrorText>
-      </Field.Root>
+      {errors.api && (
+        <Field.Root invalid={!!errors.api}>
+          <Field.ErrorText>{errors.api}</Field.ErrorText>
+        </Field.Root>
+      )}
 
       <Button type="submit" w="fit" loading={isLoading}>
         регистрация
