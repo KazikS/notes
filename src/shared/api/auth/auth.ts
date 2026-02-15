@@ -16,8 +16,7 @@ export const signUpWithEmail = async (
       },
     });
     return { data, error };
-  } catch (error) {
-    console.log(JSON.stringify(error, null, 2));
+  } catch {
     return {
       data: null,
       error: {

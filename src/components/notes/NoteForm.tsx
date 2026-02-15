@@ -1,41 +1,31 @@
 "use client";
-import { createNote } from "@/shared/api/notes";
-import { useAuthStore } from "@/shared/store/auth";
-import { NoteType } from "@/shared/types";
+import { useNoteForm } from "@/shared/hooks/useNoteForm";
 import { Button, Dialog, Field, Input, Textarea } from "@chakra-ui/react";
-import { useState } from "react";
 
 export const NoteForm = ({
-  open,
-  setIsOpen,
-  addNewNote,
+  edit,
+  noteId,
+  isFormOpen,
+  onCloseForm,
+  onUpdate,
+  onCreate,
 }: {
-  open: boolean;
-  addNewNote: React.Dispatch<React.SetStateAction<NoteType[]>>;
-  setIsOpen: (value: boolean) => void;
+  edit: boolean;
+  noteId: number;
+  isFormOpen: boolean;
+  onCloseForm: () => void;
+  onUpdate: (noteId: number, title: string, content: string) => void;
+  onCreate: (title: string, content: string, userId: string) => void;
 }) => {
-  const [title, setTitle] = useState<string>("");
-  const [desc, setDesc] = useState<string>("");
-  const userId = useAuthStore((state) => state.user?.id);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    if (!userId) return;
-    e.preventDefault();
-
-    const response = await createNote(title, desc, userId);
-
-    if (response?.data) {
-      const noteFromDb = response.data[0];
-
-      addNewNote((prev) => [noteFromDb, ...prev]);
-      setIsOpen(false);
-    }
-  };
+  const { setTitle, setContent, handleSubmit, title, content } = useNoteForm({
+    onCreate,
+    onUpdate,
+  });
 
   return (
-    <Dialog.Root open={open} placement="center">
+    <Dialog.Root open={isFormOpen} placement="center">
       <Dialog.Positioner backdropFilter={"blur(10px)"} perspective="1000px">
-        <Dialog.Backdrop onClick={() => setIsOpen(false)} />
+        <Dialog.Backdrop onClick={() => onCloseForm()} />
         <Dialog.Content
           bgColor="note.caramel"
           boxShadow="0px 0px 10px 15px {colors.fg}"
@@ -48,7 +38,7 @@ export const NoteForm = ({
             gap="4"
             flexDirection="column"
             as="form"
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e, noteId, edit)}
           >
             <Field.Root>
               <Field.Label>заголовок</Field.Label>
@@ -63,12 +53,14 @@ export const NoteForm = ({
               <Field.Label>описание</Field.Label>
               <Textarea
                 placeholder="чуть больше слов..."
-                value={desc}
-                onChange={(e) => setDesc(e.target.value)}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
               />
             </Field.Root>
 
-            <Button w="1/2" type="submit">записать</Button>
+            <Button w="1/2" type="submit">
+              записать
+            </Button>
           </Dialog.Body>
           <Dialog.Footer />
         </Dialog.Content>

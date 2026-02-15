@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { LoginFormData, LoginFormErrors } from "../types/auth";
 import { signInWithEmail } from "../api/auth";
+import { useRouter } from "next/navigation";
 
 export const useLoginForm = () => {
   const [formData, setFormData] = useState<LoginFormData>({
@@ -10,6 +11,7 @@ export const useLoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errors, setErrors] = useState<LoginFormErrors>({});
+  const router = useRouter();
 
   const updateField = ({
     field,
@@ -36,7 +38,9 @@ export const useLoginForm = () => {
       const response = await signInWithEmail(formData.email, formData.password);
       if (response.error) {
         setErrors({ api: response.error.message });
+        return;
       }
+      router.push('/notes');
     } catch (error) {
       setErrors({
         api:

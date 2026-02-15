@@ -14,7 +14,7 @@ const colors = defineSemanticTokens.colors({
     value: { base: "{colors.brand.300}", _dark: "{colors.brand.500}" },
   },
   danger: {
-    value: { base: "#C45C4A", _dark: "#E07A68" },
+    value: { base: "#C45C4A", _dark: "#e09268" },
   },
   success: {
     value: { base: "#7A8B5C", _dark: "#9AAF7A" },

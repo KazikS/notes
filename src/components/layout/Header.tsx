@@ -15,7 +15,7 @@ export const Header = () => {
   const btnText = isAuth ? "выйти" : "войти";
   const userName = useAuthStore((state) => state.user?.name);
 
-  const handleClick = () => {
+  const handleLogoClick = () => {
     router.push("/");
   };
 
@@ -43,23 +43,21 @@ export const Header = () => {
         w="full"
         h={{ base: "52px", md: "80px" }}
       >
-        <Flex flexDirection='column'>
+        <Flex flexDirection="column">
           <Text
             fontSize={{ base: "md", md: "2xl" }}
             cursor="pointer"
-            onClick={handleClick}
+            onClick={handleLogoClick}
           >
             заметки
           </Text>
-          <Text>
-            {userName ? userName : 'гость'}
-          </Text>
+          <Text>{userName ? userName : "гость"}</Text>
         </Flex>
         {mounted && (
           <Box
             display={{ base: "none", md: "block" }}
             cursor="pointer"
-            onClick={handleClick}
+            onClick={handleLogoClick}
           >
             <Image
               src={`/logo-${colorMode}.svg`}

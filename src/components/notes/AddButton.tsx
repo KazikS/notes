@@ -2,13 +2,13 @@ import { Button } from "@chakra-ui/react";
 import { LuPlus } from "react-icons/lu";
 
 export const AddButton = ({
-  setIsOpen,
+  onOpenForm,
 }: {
-  setIsOpen: (value: boolean) => void;
+  onOpenForm: (value: boolean) => void;
 }) => {
   return (
     <Button
-      onClick={() => setIsOpen(true)}
+      onClick={() => onOpenForm(false)}
       position="absolute"
       bottom="5"
       right="5"
@@ -16,7 +16,7 @@ export const AddButton = ({
       w="10"
       h="10"
       _hover={{
-        scale: '1.05'
+        scale: "1.05",
       }}
     >
       <LuPlus />

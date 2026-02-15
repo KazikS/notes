@@ -1,23 +1,32 @@
 "use client";
 import { NoteForm, NoteList } from "@/components/notes";
 import { AddButton } from "@/components/notes/AddButton";
-import { selectAllNotes } from "@/shared/api/notes";
-import { NoteType } from "@/shared/types";
+import { useNotePage } from "@/shared/hooks/useNotePage";
+import { useAuthStore } from "@/shared/store/auth";
 import { Flex } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Notes() {
-  const [noteArray, setNoteArray] = useState<NoteType[]>([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const {
+    noteArray,
+    setNoteArray,
+    fetchNotes,
+    isFormOpen,
+    onOpenForm,
+    onCloseForm,
+    handleDelete,
+    isEdit,
+    handleCreateNote,
+    handleUpdateNote,
+    editNoteId,
+    loading
+  } = useNotePage();
+  const userId = useAuthStore((state) => state.user?.id);
+
   useEffect(() => {
-    const fetchNotes = async () => {
-      const data = await selectAllNotes();
-      if (data?.data) {
-        setNoteArray(data.data);
-      }
-    };
     fetchNotes();
-  }, []);
+  }, [userId]);
+
   return (
     <Flex w="full" h="fit">
       <Flex
@@ -29,10 +38,23 @@ export default function Notes() {
         h="full"
         perspective="1000px"
       >
-        <NoteList notes={noteArray} setNoteArray={setNoteArray}/>
+        <NoteList
+          notes={noteArray}
+          loading={loading}
+          setNoteArray={setNoteArray}
+          onOpenForm={onOpenForm}
+          handleDelete={handleDelete}
+        />
       </Flex>
-      <NoteForm addNewNote={setNoteArray} open={isFormOpen} setIsOpen={setIsFormOpen}/>
-      <AddButton setIsOpen={setIsFormOpen} />
+      <NoteForm
+        noteId={editNoteId ?? 0}
+        edit={isEdit}
+        isFormOpen={isFormOpen}
+        onCloseForm={onCloseForm}
+        onUpdate={handleUpdateNote}
+        onCreate={handleCreateNote}
+      />
+      <AddButton onOpenForm={onOpenForm} />
     </Flex>
   );
 }

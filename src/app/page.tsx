@@ -23,9 +23,9 @@ export default function Home() {
         onClick={() =>
           toaster.create({
             description: "File saved successfully",
-            type: "info",
+            type: "error",
             closable: true,
-            duration: Infinity,
+            duration: 5000,
           })
         }
       >

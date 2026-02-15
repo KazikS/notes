@@ -1,10 +1,9 @@
 "use client";
-import { deleteNote } from "@/shared/api/notes";
 import { NoteType } from "@/shared/types";
 import { dateFormat } from "@/shared/utils";
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { LuTrash } from "react-icons/lu";
+import { LuPen, LuTrash } from "react-icons/lu";
 
 type NoteCardProps = NoteType & {
   setNoteArray: React.Dispatch<React.SetStateAction<NoteType[]>>;
@@ -15,17 +14,15 @@ export const NoteCard = ({
   content,
   created_at,
   id,
-  setNoteArray,
-}: NoteCardProps) => {
+  onOpenForm,
+  handleDelete
+}: NoteCardProps & {
+  onOpenForm: (value: boolean, noteId: number) => void,
+  handleDelete: (value: number) => void,
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const formattedDate = dateFormat(created_at);
-
-  const handleDelete = async () => {
-    const response = await deleteNote(id);
-    setNoteArray((prev) => prev.filter((e) => e.id !== id));
-    return response;
-  };
 
   const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
@@ -61,11 +58,31 @@ export const NoteCard = ({
       transition="all 0.5s"
       justifySelf="center"
     >
-      <Flex w="full" justifyContent="space-between" alignItems="center">
+      <Flex
+        w="full"
+        justifyContent="space-between"
+        alignItems="center"
+        borderBottom="1px solid {colors.fg}"
+      >
         <Text>{formattedDate}</Text>
-        <Button variant="ghost" rounded="full" onClick={handleDelete}>
-          <LuTrash />
-        </Button>
+        <Flex>
+          <Button
+            variant="ghost"
+            rounded="full"
+            w="10"
+            onClick={() => onOpenForm(true, id)}
+          >
+            <LuPen />
+          </Button>
+          <Button
+            variant="ghost"
+            rounded="full"
+            w="10"
+            onClick={() => handleDelete(id)}
+          >
+            <LuTrash />
+          </Button>
+        </Flex>
       </Flex>
       <Heading>{title}</Heading>
       <Text lineClamp="5">{content}</Text>
