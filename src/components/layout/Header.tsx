@@ -69,7 +69,6 @@ export const Header = () => {
         )}
         <Flex gap={4} alignItems="center">
           <Button
-            variant="primary"
             size={{ base: "sm", md: "md" }}
             onClick={handleBtnClick}
           >
