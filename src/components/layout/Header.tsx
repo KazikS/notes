@@ -11,7 +11,7 @@ export const Header = () => {
   const { colorMode } = useColorMode();
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
-  const isAuth = useAuthStore().isAuth;
+  const isAuth = useAuthStore((state) => state.isAuth);
   const btnText = isAuth ? "выйти" : "войти";
   const userName = useAuthStore((state) => state.user?.name);
 

@@ -5,20 +5,17 @@ import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { LuPen, LuTrash } from "react-icons/lu";
 
-type NoteCardProps = NoteType & {
-  setNoteArray: React.Dispatch<React.SetStateAction<NoteType[]>>;
-};
-
+type NoteCardProps = NoteType;
 export const NoteCard = ({
   title,
   content,
   created_at,
   id,
   onOpenForm,
-  handleDelete
+  handleDelete,
 }: NoteCardProps & {
-  onOpenForm: (value: boolean, noteId: number) => void,
-  handleDelete: (value: number) => void,
+  onOpenForm: (value: boolean, noteId: number) => void;
+  handleDelete: (value: number) => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });

@@ -52,7 +52,7 @@ export const useNotePage = () => {
       });
       return;
     }
-    setNoteArray(noteArray.filter((note) => note.id !== noteId));
+    setNoteArray((prev) => prev.filter((note) => note.id !== noteId));
   };
 
   const handleUpdateNote = async (

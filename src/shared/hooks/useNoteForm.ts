@@ -21,12 +21,11 @@ export const useNoteForm = ({
 
     if (onEdit) {
       onUpdate(noteId, title, content);
-      console.log("update");
-      return;
     }
     if (!onEdit && userId) {
       onCreate(title, content, userId);
-      console.log("create");
+      setTitle("");
+      setContent("");
     }
   };
 

@@ -48,7 +48,6 @@ export const deleteNote = async (noteId: number) => {
       .from("Notes")
       .delete()
       .eq("id", noteId);
-      console.log(noteId);
     return { data, error };
   } catch {
     return {

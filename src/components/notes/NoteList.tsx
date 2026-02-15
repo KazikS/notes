@@ -5,7 +5,6 @@ import { NoteCard } from "./NoteCard";
 type NoteListProps = {
   notes: NoteType[];
   loading: boolean;
-  setNoteArray: React.Dispatch<React.SetStateAction<NoteType[]>>;
   onOpenForm: (value: boolean, noteId: number) => void;
   handleDelete: (value: number) => void;
 };
@@ -13,11 +12,9 @@ type NoteListProps = {
 export const NoteList = ({
   notes,
   loading,
-  setNoteArray,
   onOpenForm,
   handleDelete,
 }: NoteListProps) => {
-  console.log(loading)
 
   if (notes.length === 0 && !loading) {
     return (
@@ -45,8 +42,6 @@ export const NoteList = ({
               content={el.content}
               created_at={el.created_at}
               id={el.id}
-              setNoteArray={setNoteArray}
-              by_user={el.by_user}
               onOpenForm={onOpenForm}
               handleDelete={handleDelete}
             />

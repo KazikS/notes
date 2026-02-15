@@ -57,7 +57,7 @@ export const LoginForm = () => {
             placeholder="введи пароль..."
             value={formData.password}
             onChange={(e) => handlePasswordChange(e.target.value)}
-            type="password"
+            type={showPassword ? "text" : 'password'}
           />
         </InputGroup>
       </Field.Root>

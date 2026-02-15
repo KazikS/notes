@@ -1,6 +1,5 @@
 "use client";
-import { NoteForm, NoteList } from "@/components/notes";
-import { AddButton } from "@/components/notes/AddButton";
+import { NoteForm, NoteList, AddButton } from "@/components/notes";
 import { useNotePage } from "@/shared/hooks/useNotePage";
 import { useAuthStore } from "@/shared/store/auth";
 import { Flex } from "@chakra-ui/react";
@@ -19,7 +18,7 @@ export default function Notes() {
     handleCreateNote,
     handleUpdateNote,
     editNoteId,
-    loading
+    loading,
   } = useNotePage();
   const userId = useAuthStore((state) => state.user?.id);
 
@@ -41,7 +40,6 @@ export default function Notes() {
         <NoteList
           notes={noteArray}
           loading={loading}
-          setNoteArray={setNoteArray}
           onOpenForm={onOpenForm}
           handleDelete={handleDelete}
         />

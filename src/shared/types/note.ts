@@ -1,5 +1,5 @@
 export type NoteType = {
-  by_user: string;
+  by_user?: string;
   content: string;
   created_at: string;
   id: number;
