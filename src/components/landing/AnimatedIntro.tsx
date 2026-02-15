@@ -37,7 +37,7 @@ export const AnimatedIntro = ({url}: {url: string}) => {
         {...fadeInUp}
         transition={{ duration: 0.8, delay: 0.4 }}
       >
-        <Button mt="6" variant="primary" size="lg" onClick={handleClick}>
+        <Button mt="6" size="lg" onClick={handleClick}>
           Начать
         </Button>
       </MotionBox>
