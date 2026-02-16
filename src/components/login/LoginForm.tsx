@@ -1,6 +1,6 @@
 "use client";
 import { useLoginForm } from "@/shared/hooks/useLoginForm";
-import { Button, Field, Flex, Input, InputGroup } from "@chakra-ui/react";
+import { Button, Field, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
 export const LoginForm = () => {
@@ -27,6 +27,7 @@ export const LoginForm = () => {
       gap={4}
       maxW={400}
       p="5"
+      position="relative"
     >
       <Field.Root required>
         <Field.Label>почта</Field.Label>
@@ -57,7 +58,7 @@ export const LoginForm = () => {
             placeholder="введи пароль..."
             value={formData.password}
             onChange={(e) => handlePasswordChange(e.target.value)}
-            type={showPassword ? "text" : 'password'}
+            type={showPassword ? "text" : "password"}
           />
         </InputGroup>
       </Field.Root>
@@ -69,6 +70,17 @@ export const LoginForm = () => {
       <Button type="submit" w="fit" loading={loading}>
         войти
       </Button>
+
+      <Flex
+        flexDirection="column"
+        color="brand.500"
+        position="absolute"
+        top="72"
+      >
+        <Text>тестовый аккаунт</Text>
+        <Text>логин: test@test.ru</Text>
+        <Text>пароль: Test123</Text>
+      </Flex>
     </Flex>
   );
 };

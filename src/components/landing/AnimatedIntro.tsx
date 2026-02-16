@@ -3,7 +3,7 @@ import MotionBox from "@/shared/ui/common/MotionBox";
 import { Button, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
-export const AnimatedIntro = ({url}: {url: string}) => {
+export const AnimatedIntro = ({ url }: { url: string }) => {
   const router = useRouter();
   const fadeInUp = {
     initial: { opacity: 0, y: 200 },
@@ -16,7 +16,7 @@ export const AnimatedIntro = ({url}: {url: string}) => {
     <Flex flexDir="column" align="center">
       <MotionBox
         color="fg"
-        fontSize="4xl"
+        fontSize={{ base: "2xl", md: "4xl" }}
         fontWeight="bold"
         {...fadeInUp}
         transition={{ duration: 0.8 }}
@@ -25,7 +25,7 @@ export const AnimatedIntro = ({url}: {url: string}) => {
       </MotionBox>
       <MotionBox
         color="fg"
-        fontSize="2xl"
+        fontSize={{ base: "lg", md: "2xl" }}
         {...fadeInUp}
         transition={{ duration: 0.8, delay: 0.2 }}
       >

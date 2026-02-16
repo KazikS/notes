@@ -23,12 +23,13 @@ export const NoteForm = ({
   });
 
   return (
-    <Dialog.Root open={isFormOpen} placement="center">
+    <Dialog.Root open={isFormOpen} placement="center" size={{base: 'xs', md: 'md'}}>
       <Dialog.Positioner backdropFilter={"blur(10px)"} perspective="1000px">
         <Dialog.Backdrop onClick={() => onCloseForm()} />
         <Dialog.Content
           bgColor="note.caramel"
           boxShadow="0px 0px 10px 15px {colors.fg}"
+          mx="10"
         >
           <Dialog.Header>
             <Dialog.Title>заметка</Dialog.Title>
